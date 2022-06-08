@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Productos</title>
+</head>
+<body>
+    <h1 class="title">Productos</h1>
+    <% if(products.length > 0) {%>
+        <div class="container">
+            <table>
+                <tr class="filas">
+                    <th class="columnas">Id</th>
+                    <th class="columnas">Title</th>
+                    <th class="columnas">Price</th>
+                    <th class="columnas">Thumbnail</th>
+                </tr>
+                <% products.forEach(p => {%>
+                    <tr class="filas">
+                        <th class="columnas"><%= p.id %></th>
+                        <th class="columnas"><%= p.title %></th>
+                        <th class="columnas"><%= p.price %></th>
+                        <th class="columnas"><%= p.photo %></th>
+                    </tr>
+                <% })%>
+            </table>  
+        </div>
+        <div class="container">
+            <button id="redirecProduct" type="submit">Cargar otro producto</button>
+        </div>
+    <% }else {%>
+        <div class="container"> 
+            <p>No hay productos</p>
+        </div>
+        <div class="container">
+            <button id="redirecProduct" type="submit">Cargar un producto</button>
+        </div>
+    <% }%>
+    
+    <script src="./redirecciones.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1 class="title"><%= title %></h1>
+    <form class="formularioAgregar" action="/productos" enctype="multipart/form-data" method="post">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" placeholder="Nombre del producto">
+        <label for="price">Price</label>
+        <input type="text" name="price" id="price" placeholder="Precio del producto">
+        <label for="photo">Thumbnail</label>
+        <input type="file" name="photo" id="photo" value="Upload a file">
+        <button id="button" value="Upload product">Agregar producto</button>
+    </form>
+
+    <div class="center">
+        <table id="tablaP">
+            <tr class="filas">
+                <th class="columnas">Title</th>
+                <th class="columnas">Price</th>
+                <th class="columnas">Thumbnail</th>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="center">
+        <h2>Centro de Mensajes</h2>
+        <input type="text" name="mail" id="mail" placeholder="Colocar mail">
+        <div id="nuevosMensajes" class="nuevosMensajes"></div>
+        <input type="text" name="mensaje" id="mensaje" placeholder="Colocar mensaje">
+        <button id="buttonMensajes" class="botonMensajes" value="Agregar Mensaje">Agregar Mensaje</button>
+    </div>
+
+    <script src="./socket.io/socket.io.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
