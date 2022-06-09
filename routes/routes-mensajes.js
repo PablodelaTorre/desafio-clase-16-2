@@ -1,71 +1,47 @@
-import knex from "knex"
+import { Router } from 'express';
+import Api from '../apiClassMensajes'
+import { options } from '../dataBases/configDB.js';
 
-export default class Api {
-    constructor(options,table){
-        this.knex = knex(options)
-        this.table = table
+const router = Router()
+const api = new Api(options.mariaDB,'mensajes')
+
+const isAdmin = true
+
+function adminOrClient(req,res,next){
+    if(!isAdmin){
+        res.send("No tienes acceso a esta ruta")
+    } else {
+        next()
     }
-    async findAll(){
-        try {
-            const productos = await this.knex.from(this.table).select("*")
-            return productos
-        } catch (error) {
-            throw new Error(`Error: ${error}`)
-        }
-    }
-
-    async findById(id){
-        try {
-            const producto = await this.knex.from(this.table).select("*").where('id',id)
-            return producto
-        } catch (error) {
-            throw new Error(`Error: ${error}`)
-        }
-    }
-
-    async create(obj){
-        try {
-            const nuevoProducto = await this.knex(this.table).insert(obj)
-            return nuevoProducto
-        } catch (error) {
-            throw new Error(`Error: ${error}`)
-        }
-    }
-
-    async actualizarP(id,product){
-        try {
-            let producto = await this.findById(id)
-            let prod = {...product,id}
-            if (producto) {
-                producto = prod
-                const productos = await this.findAll()
-                productos.push(producto)
-                await fs.promises.writeFile(this.rutaBD,JSON.stringify(productos))
-        }   else {
-            console.log('Producto no encontrado')
-        }    
-        } catch (error) {
-            throw new Error(`Error: ${error}`)
-        }
-        
-    }
-
-    async deleteP(id){
-        try {
-            const elementoBorrado = await this.knex.from(this.table).where("id",id).del()
-            return elementoBorrado
-        } catch (error) {
-            throw new Error(`Error: ${error}`)
-        }   
-    }
-
-    async deleteAll(id){
-        try {
-            return await this.knex.from(this.table).del()
-        } catch (error) {
-            throw new Error(`Error: ${error}`)
-        }   
-    }
-
-
 }
+
+router.get('/', async (req,res) => {
+    const products = await api.findAll()
+    res.json(products)
+})
+
+router.get('/:id', async (req,res) => {
+    const {id} = req.params
+    const product = await api.findById(id)
+    res.json(product)
+})
+
+router.post('/',adminOrClient, async (req,res) => {
+    const obj = req.body
+    const product = await api.create(obj)
+    res.json(product)
+})
+
+router.put('/:id',adminOrClient, async (req,res) => {
+    const producto = req.body
+    const product = await api.actualizarP(producto)
+    res.json(product)
+})
+
+router.delete('/:id',adminOrClient, async (req,res) => {
+    const {id} = req.params
+    const product = await api.deleteP(id)
+    res.json("Producto eliminado")
+})
+
+export default router

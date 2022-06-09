@@ -1,4 +1,8 @@
 {
+  "name": "pablo-de-la-torre-desafio-clase-16-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "servidor.js",
   "dependencies": {
     "ejs": "^3.1.8",
     "express": "^4.18.1",
@@ -11,6 +15,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./servidor.js"
+    "start": "nodemon --exec babel-node ./servidor.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/node": "^7.17.10",
+    "@babel/preset-env": "^7.18.2"
   }
 }
