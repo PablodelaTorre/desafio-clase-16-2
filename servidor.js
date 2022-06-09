@@ -58,9 +58,16 @@ io.on('connection',(socket)=>{
 
     socket.on('newMessage', mensaje => {
         mensajes.push(mensaje)
+        router.post('/',adminOrClient, async (req,res) => {
+            const obj = mensajes
+            const product = await api.create(obj)
+            res.json(product)
+        })
         io.sockets.emit('mensajes',mensajes)
     })
 })
+
+export default mensajes
 
 const PORT = 8080
 const server = httpServer.listen(PORT, () => {

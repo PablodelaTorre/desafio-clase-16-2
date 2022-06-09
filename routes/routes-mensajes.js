@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import Api from '../apiClassMensajes'
 import { options } from '../dataBases/configDB.js';
+import mensajes from '../servidor';
 
 const router = Router()
 const api = new Api(options.mariaDB,'mensajes')
