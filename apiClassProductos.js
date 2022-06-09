@@ -7,8 +7,8 @@ export default class Api {
     }
     async findAll(){
         try {
-            const mensajes = await this.knex.from(this.table).select("*")
-            return mensajes
+            const productos = await this.knex.from(this.table).select("*")
+            return productos
         } catch (error) {
             throw new Error(`Error: ${error}`)
         }
@@ -16,8 +16,8 @@ export default class Api {
 
     async findById(id){
         try {
-            const mensaje = await this.knex.from(this.table).select("*").where('id',id)
-            return mensaje
+            const producto = await this.knex.from(this.table).select("*").where('id',id)
+            return producto
         } catch (error) {
             throw new Error(`Error: ${error}`)
         }
@@ -25,8 +25,8 @@ export default class Api {
 
     async create(obj){
         try {
-            const nuevoMensaje = await this.knex(this.table).insert(obj)
-            return nuevoMensaje
+            const nuevoProducto = await this.knex(this.table).insert(obj)
+            return nuevoProducto
         } catch (error) {
             throw new Error(`Error: ${error}`)
         }
