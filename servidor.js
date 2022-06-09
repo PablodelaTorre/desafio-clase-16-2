@@ -4,23 +4,23 @@ const http = require('http')
 const app = express()
 const multer = require('multer')
 const routesProductos = require("./routes/routes-productos.js")
-import mensajesRoutes from "./routes/routes-mensajes"
-import { Router } from 'express';
-import Api from './apiClassMensajes'
-import { options } from './dataBases/configDB.js';
+// import mensajesRoutes from "./routes/routes-mensajes"
+// import { Router } from 'express';
+// import Api from './apiClassMensajes'
+// import { options } from './dataBases/configDB.js';
 
-const router = Router()
-const api = new Api(options.mariaDB,'mensajes')
+// const router = Router()
+// const api = new Api(options.mariaDB,'mensajes')
 
-const isAdmin = true
+// const isAdmin = true
 
-function adminOrClient(req,res,next){
-    if(!isAdmin){
-        res.send("No tienes acceso a esta ruta")
-    } else {
-        next()
-    }
-}
+// function adminOrClient(req,res,next){
+//     if(!isAdmin){
+//         res.send("No tienes acceso a esta ruta")
+//     } else {
+//         next()
+//     }
+// }
 
 const httpServer = http.createServer(app)
 const io = new ioServer(httpServer)
@@ -58,11 +58,11 @@ io.on('connection',(socket)=>{
 
     socket.on('newMessage', mensaje => {
         mensajes.push(mensaje)
-        router.post('/',adminOrClient, async (req,res) => {
-            const obj = mensajes
-            const product = await api.create(obj)
-            res.json(product)
-        })
+        // router.post('/',adminOrClient, async (req,res) => {
+        //     const obj = mensajes
+        //     const product = await api.create(obj)
+        //     res.json(product)
+        // })
         io.sockets.emit('mensajes',mensajes)
     })
 })
